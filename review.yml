@@ -1,0 +1,43 @@
+---
+name: Hanyang University
+description: Hanyang University public developer/API footprint review for APIs.json cataloging.
+url: https://raw.githubusercontent.com/api-evangelist/hanyang/refs/heads/main/review.yml
+created: '2026-06-03'
+modified: '2026-06-03'
+reviews:
+  - date: '2026-06-03'
+    rating: 3
+    summary: >-
+      Hanyang University runs a genuine, officially branded API Developer
+      Center at api.hanyang.ac.kr offering REST Open APIs (XML/JSON), OAuth
+      authentication, Android/iOS SDKs, an API console, and a developer
+      community. The developer-center landing and SDK pages return HTTP 200 and
+      are publicly readable, but individual endpoints and Private (personal
+      data) APIs are gated behind developer registration and HY-in/OAuth login,
+      so they could not be enumerated. No official university-wide GitHub
+      organization was found (only research labs and student projects), so no
+      GitHub common pointer is claimed. The English homepage returns 403 to
+      automated probes but is the confirmed official site. No endpoints were
+      fabricated; only verified, publicly reachable URLs are recorded below.
+    endpoints:
+      - url: https://api.hanyang.ac.kr/develop/start.page
+        status: 200
+        note: Developer Center landing / getting-started docs (verified live).
+      - url: https://api.hanyang.ac.kr/develop/sdk_asp.page
+        status: 200
+        note: SDK documentation page (ASP sample, OAuth communication).
+      - url: https://api.hanyang.ac.kr/oauth/login
+        status: 200
+        note: OAuth login / developer sign-in entry point.
+      - url: https://api.hanyang.ac.kr/rs/
+        status: 0
+        note: Documented Open API base path pattern; not directly probed (gated).
+      - url: https://portal.hanyang.ac.kr/
+        status: 200
+        note: HY-in portal used for developer/end-user authentication.
+      - url: https://www.hanyang.ac.kr/web/eng
+        status: 403
+        note: Official English homepage; blocks automated probes but is the confirmed site.
+      - url: https://www.linkedin.com/company/hanyang-university
+        status: 200
+        note: Official LinkedIn company page.

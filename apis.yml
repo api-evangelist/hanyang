@@ -1,0 +1,81 @@
+---
+aid: hanyang
+name: Hanyang University
+description: >-
+  Hanyang University is a private research university in Seoul and Ansan, South
+  Korea, ranked #162 in the QS World University Rankings 2025. It operates an
+  official API Developer Center at api.hanyang.ac.kr that publishes REST-style
+  Open APIs returning XML or JSON, with OAuth-based authentication, Android and
+  iOS SDKs, an API testing console, and a developer community. Access to the
+  Open APIs requires developer registration and authentication through the
+  university's HY-in portal; individual endpoints and personal-data ("Private")
+  APIs are gated behind that login, so they are not publicly enumerable.
+type: Index
+position: Consumer
+access: 3rd-Party
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+url: https://raw.githubusercontent.com/api-evangelist/hanyang/refs/heads/main/apis.yml
+tags:
+  - Education
+  - Higher Education
+  - University
+  - South Korea
+  - Seoul
+  - Open API
+  - OAuth
+created: '2026-06-03'
+modified: '2026-06-03'
+specificationVersion: '0.19'
+apis:
+  - aid: hanyang:developer-center
+    name: Hanyang University Open API Developer Center
+    description: >-
+      Official Hanyang University Open API platform providing REST-style APIs
+      that return XML or JSON. APIs are classified as Public (no personal data)
+      or Private (require user authentication for personal information). The
+      center provides API documentation, an API testing console, app
+      registration with API keys, and a developer community. Endpoint access
+      requires developer registration; specific endpoints are not publicly
+      listed.
+    humanURL: https://api.hanyang.ac.kr/develop/start.page
+    baseURL: https://api.hanyang.ac.kr/rs/
+    tags: [ Education, University, Open API, REST, JSON, XML ]
+    properties:
+      - type: Documentation
+        url: https://api.hanyang.ac.kr/develop/start.page
+      - type: SignUp
+        url: https://api.hanyang.ac.kr/oauth/login
+      - type: Authentication
+        url: https://api.hanyang.ac.kr/oauth/login
+  - aid: hanyang:sdk
+    name: Hanyang University Open API SDKs
+    description: >-
+      Software development kits published by the Hanyang University Developer
+      Center for building applications against the Open APIs, including Android
+      and iOS SDKs and server-side sample integrations (e.g., ASP) that handle
+      OAuth server communication and authentication.
+    humanURL: https://api.hanyang.ac.kr/develop/sdk_asp.page
+    tags: [ SDK, OAuth, Android, iOS, Education ]
+    properties:
+      - type: Documentation
+        url: https://api.hanyang.ac.kr/develop/sdk_asp.page
+common:
+  - type: Website
+    url: https://www.hanyang.ac.kr/web/eng
+  - type: DeveloperPortal
+    url: https://api.hanyang.ac.kr/develop/start.page
+  - type: Authentication
+    url: https://api.hanyang.ac.kr/oauth/login
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/hanyang-university
+  - type: Plans
+    url: plans/hanyang-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/hanyang-rate-limits.yml
+  - type: FinOps
+    url: finops/hanyang-finops.yml
+  - type: Review
+    url: review.yml
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
