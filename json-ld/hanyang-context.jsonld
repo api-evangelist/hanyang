@@ -1,0 +1,55 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "hy": "https://api.hanyang.ac.kr/ns#",
+    "schema": "https://schema.org/",
+    "name": "schema:name",
+    "url": "schema:url",
+    "description": "schema:description",
+    "sameAs": "schema:sameAs",
+    "CollegeOrUniversity": "schema:CollegeOrUniversity",
+    "address": "schema:address",
+    "foundingDate": "schema:foundingDate",
+    "developerPortal": {
+      "@id": "hy:developerPortal",
+      "@type": "@id"
+    },
+    "api": {
+      "@id": "hy:api",
+      "@type": "@id"
+    },
+    "apiName": "schema:name",
+    "humanURL": {
+      "@id": "schema:url",
+      "@type": "@id"
+    },
+    "baseURL": {
+      "@id": "hy:baseURL",
+      "@type": "@id"
+    },
+    "authentication": "hy:authentication"
+  },
+  "@type": "CollegeOrUniversity",
+  "name": "Hanyang University",
+  "url": "https://www.hanyang.ac.kr/web/eng",
+  "description": "Private research university in Seoul and Ansan, South Korea, operating an official Open API Developer Center.",
+  "sameAs": [
+    "https://www.linkedin.com/company/hanyang-university",
+    "https://blog.naver.com/hanyang-univ"
+  ],
+  "developerPortal": "https://api.hanyang.ac.kr/develop/start.page",
+  "api": [
+    {
+      "@type": "hy:api",
+      "apiName": "Hanyang University Open API Developer Center",
+      "humanURL": "https://api.hanyang.ac.kr/develop/start.page",
+      "baseURL": "https://api.hanyang.ac.kr/rs/",
+      "authentication": "OAuth"
+    },
+    {
+      "@type": "hy:api",
+      "apiName": "Hanyang University Open API SDKs",
+      "humanURL": "https://api.hanyang.ac.kr/develop/sdk_asp.page"
+    }
+  ]
+}

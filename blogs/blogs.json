@@ -1,0 +1,21 @@
+{
+  "repo": "hanyang",
+  "feeds": [
+    {
+      "source": "http://www.newshyu.com/news/articleList.html?sc_sub_section_code=S2N24&sc_language=E&view_type=sm",
+      "feed_url": "http://www.newshyu.com/news/articleList.html?sc_sub_section_code=S2N24&sc_language=E&view_type=sm",
+      "title": "Hanyang University News (English)",
+      "saved": 0,
+      "method": "none"
+    },
+    {
+      "source": "https://www.hanyang.ac.kr/web/eng",
+      "feed_url": "https://www.hanyang.ac.kr/web/eng",
+      "title": "Hanyang University",
+      "saved": 0,
+      "method": "none"
+    }
+  ],
+  "post_count": 0,
+  "fetched": "2026-06-03T00:00:00Z"
+}
