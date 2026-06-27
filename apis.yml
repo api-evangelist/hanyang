@@ -43,7 +43,7 @@ apis:
     properties:
       - type: Documentation
         url: https://api.hanyang.ac.kr/develop/start.page
-      - type: SignUp
+      - type: Signup
         url: https://api.hanyang.ac.kr/oauth/login
       - type: Authentication
         url: https://api.hanyang.ac.kr/oauth/login
