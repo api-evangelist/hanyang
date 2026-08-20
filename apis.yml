@@ -33,6 +33,14 @@ tags:
   - University
   - South Korea
   - Seoul
+  - OpenAPI
+  - Authentication
+tags_raw:
+  - Education
+  - Higher Education
+  - University
+  - South Korea
+  - Seoul
   - Open API
   - OAuth
 created: '2026-06-03'
@@ -51,7 +59,20 @@ apis:
       listed.
     humanURL: https://api.hanyang.ac.kr/develop/start.page
     baseURL: https://api.hanyang.ac.kr/rs/
-    tags: [ Education, University, Open API, REST, JSON, XML ]
+    tags:
+    - Education
+    - University
+    - OpenAPI
+    - REST
+    - JSON
+    - XML
+    tags_raw:
+    - Education
+    - University
+    - Open API
+    - REST
+    - JSON
+    - XML
     properties:
       - type: Documentation
         url: https://api.hanyang.ac.kr/develop/start.page
@@ -67,7 +88,18 @@ apis:
       and iOS SDKs and server-side sample integrations (e.g., ASP) that handle
       OAuth server communication and authentication.
     humanURL: https://api.hanyang.ac.kr/develop/sdk_asp.page
-    tags: [ SDK, OAuth, Android, iOS, Education ]
+    tags:
+    - SDK
+    - Authentication
+    - Android
+    - iOS
+    - Education
+    tags_raw:
+    - SDK
+    - OAuth
+    - Android
+    - iOS
+    - Education
     properties:
       - type: Documentation
         url: https://api.hanyang.ac.kr/develop/sdk_asp.page
