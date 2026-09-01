@@ -1,15 +1,28 @@
 ---
 aid: hanyang
 name: Hanyang University
+x-type: university
+x-category: Private Research University
 description: >-
-  Hanyang University is a private research university in Seoul and Ansan, South
-  Korea, ranked #162 in the QS World University Rankings 2025. It operates an
-  official API Developer Center at api.hanyang.ac.kr that publishes REST-style
-  Open APIs returning XML or JSON, with OAuth-based authentication, Android and
-  iOS SDKs, an API testing console, and a developer community. Access to the
-  Open APIs requires developer registration and authentication through the
-  university's HY-in portal; individual endpoints and personal-data ("Private")
-  APIs are gated behind that login, so they are not publicly enumerable.
+  Hanyang University is a private research university in Seoul and Ansan (ERICA),
+  South Korea, ROR https://ror.org/046865y68. Unusually for this cohort it operates
+  a genuine, institution-built API programme rather than a set of vendor tenancies:
+  the HYU Open API Developer Center at api.hanyang.ac.kr publishes REST endpoints
+  returning XML or JSON across twelve service categories (academic records, campus
+  life, administration, research, careers, library, alumni giving, volunteering and
+  more), backed by its own OAuth 2.0 authorization server, Android and iOS SDKs, an
+  API console, a developer community and a full published error-code table. The
+  catch is that the API catalogue itself is member-only: /api/search.page renders an
+  empty template to anonymous visitors and app keys are issued only after manual
+  administrator approval, so no endpoint list, scope list or machine-readable
+  contract is publicly enumerable. The one openly callable institution-operated API
+  is the OAI-PMH 2.0 interface on Hanyang's own DSpace repository at
+  repository.hanyang.ac.kr, which answers Identify, ListMetadataFormats and ListSets
+  correctly but returned noRecordsMatch to every harvest request probed. Its
+  research-output and thesis surfaces are vendor tenancies (ScholarWorks/Bwise,
+  KERIS dCollection), it registers DOIs through eight institute-level Crossref
+  memberships rather than centrally, and it publishes no SAML identity-provider
+  metadata to KAFE or eduGAIN while eleven of its Korean peers do.
 type: Index
 deliveryModel:
   model: saas
@@ -44,30 +57,79 @@ tags:
   - University
   - South Korea
   - Seoul
-  - OpenAPI
+  - Research Repository
+  - OAI-PMH
   - Authentication
+  - OpenAPI
 tags_raw:
   - Education
   - Higher Education
   - University
   - South Korea
   - Seoul
-  - Open API
+  - Research Repository
+  - OAI-PMH
   - OAuth
+  - Open API
 created: '2026-06-03'
-modified: '2026-06-03'
+modified: '2026-09-01'
 specificationVersion: '0.23'
+x-coverage:
+  state: gated
+  reason: auth_required
+  detail: >-
+    Hanyang runs a real, institution-built Open API programme, but its API catalogue is
+    behind a developer-center member account. /api/search.page returns HTTP 200 with the
+    detail template rendered and no rows; /develop/console.page, /notice/list.page and
+    /board/list.page all return the login form instead of content; app keys require manual
+    administrator approval. The public documentation pages (getting started, authentication,
+    error codes, app registration, Android/iOS SDKs, terms of service) are readable and were
+    the source for the authentication, errors and rate-limit artifacts in this repo, but no
+    endpoint, no scope name and no machine-readable contract can be enumerated from outside.
+    The one openly callable institution-operated API found is the OAI-PMH interface on the
+    university's own DSpace host, and it returns noRecordsMatch to every harvest request.
+    Nothing here is blocked at our end; every probe below ran and returned.
+  generated: '2026-09-01'
+  method: probed
+  evidence:
+    - url: https://api.hanyang.ac.kr/develop/start.page
+      status: 200
+    - url: https://api.hanyang.ac.kr/api/search.page
+      status: 200
+    - url: https://api.hanyang.ac.kr/develop/console.page
+      status: 200
+    - url: https://api.hanyang.ac.kr/develop/auths.page
+      status: 200
+    - url: https://api.hanyang.ac.kr/develop/errorcode.page
+      status: 200
+    - url: https://api.hanyang.ac.kr/openapi.json
+      status: 404
+    - url: https://api.hanyang.ac.kr/.well-known/oauth-authorization-server
+      status: 404
+    - url: https://repository.hanyang.ac.kr/oai/request?verb=Identify
+      status: 200
+    - url: https://repository.hanyang.ac.kr/oai/request?verb=ListIdentifiers&metadataPrefix=oai_dc
+      status: 200
+    - url: https://www.hanyang.ac.kr/llms.txt
+      status: 404
 apis:
   - aid: hanyang:developer-center
     name: Hanyang University Open API Developer Center
+    x-operator: institution
+    x-operator-evidence: >-
+      api.hanyang.ac.kr is under the institution's own registrable domain; the terms of
+      service at /member/join_step01.page name Hanyang University as the operator of the
+      service, and the OAuth authorization and token endpoints sit on the same host.
     description: >-
-      Official Hanyang University Open API platform providing REST-style APIs
-      that return XML or JSON. APIs are classified as Public (no personal data)
-      or Private (require user authentication for personal information). The
-      center provides API documentation, an API testing console, app
-      registration with API keys, and a developer community. Endpoint access
-      requires developer registration; specific endpoints are not publicly
-      listed.
+      Hanyang University's own Open API platform, built and run by the university rather
+      than bought from a vendor. REST endpoints under https://api.hanyang.ac.kr/rs/ return
+      XML or JSON, selected by file extension. The Developer Center's own menu lists twelve
+      service categories: 공통 (common), 학사정보 (academic records), 한양광장, 대학생활
+      (campus life), 대학소개, 행정정보 (administration), 연구정보 (research), 취업정보
+      (careers), 학술정보 (library and scholarly), 경영정보, 발전기금 (giving) and 사회봉사
+      (volunteering). APIs are classed Public (no personal data) or Private (personal data,
+      end-user OAuth consent required). Individual endpoints are visible only to registered
+      developer-center members, so the catalogue could not be enumerated.
     humanURL: https://api.hanyang.ac.kr/develop/start.page
     baseURL: https://api.hanyang.ac.kr/rs/
     tags:
@@ -88,16 +150,68 @@ apis:
       - type: Documentation
         url: https://api.hanyang.ac.kr/develop/start.page
       - type: Signup
-        url: https://api.hanyang.ac.kr/oauth/login
+        url: https://api.hanyang.ac.kr/member/join_step01.page
       - type: Authentication
-        url: https://api.hanyang.ac.kr/oauth/login
+        url: https://api.hanyang.ac.kr/develop/auths.page
+      - type: Errors
+        url: errors/hanyang-open-api-errors.yml
+      - type: RateLimits
+        url: rate-limits/hanyang-rate-limits.yml
+      - type: TermsOfService
+        url: https://api.hanyang.ac.kr/member/join_step01.page
+  - aid: hanyang:repository-oai-pmh
+    name: Repository at Hanyang University — OAI-PMH
+    x-operator: institution
+    x-operator-evidence: >-
+      repository.hanyang.ac.kr resolves under the institution's own registrable domain and
+      is served from the university's own Apache/Rocky Linux host; OAI Identify returns
+      repositoryName "Repository at Hanyang University" and adminEmail
+      repository@hanyang.ac.kr. DSpace 5.5 is open-source software the university runs
+      itself, not a vendor tenancy.
+    description: >-
+      OAI-PMH 2.0 metadata-harvesting interface on Hanyang's institutional DSpace
+      repository, plus an OpenSearch 1.1 descriptor and RSS/Atom feeds. Twelve metadata
+      formats are advertised (oai_dc, qdc, mods, mets, marc, etdms, xoai, dim, rdf, ore,
+      didl, uketd_dc) and sets enumerate the university's communities and collections on
+      Handle prefix 20.500.11754. IMPORTANT — the descriptive verbs work but the harvest
+      verbs do not: ListIdentifiers, ListRecords and GetRecord returned noRecordsMatch or
+      idDoesNotExist for every metadataPrefix, set and date range probed on 2026-09-01,
+      and on the /oai/openaire context too, even though the web UI and RSS feed serve
+      items. Recorded as live-but-empty, not as a working harvest source.
+    humanURL: https://repository.hanyang.ac.kr/
+    baseURL: https://repository.hanyang.ac.kr/oai/request
+    tags:
+    - Education
+    - University
+    - Research Repository
+    - OAI-PMH
+    - Metadata
+    - DSpace
+    tags_raw:
+    - Education
+    - University
+    - Research Repository
+    - OAI-PMH
+    - Metadata
+    - DSpace
+    properties:
+      - type: OpenAPI
+        url: openapi/hanyang-repository-oai-pmh-openapi.yml
+      - type: Examples
+        url: examples/hanyang-repository-oai-pmh-examples.yml
+      - type: OpenSearch
+        url: https://repository.hanyang.ac.kr/open-search/description.xml
+      - type: BlogRSS
+        url: https://repository.hanyang.ac.kr/feed/rss_2.0/site
   - aid: hanyang:sdk
     name: Hanyang University Open API SDKs
+    x-operator: institution
+    x-operator-evidence: Published on api.hanyang.ac.kr under the Hanyang University Developer Center masthead.
     description: >-
-      Software development kits published by the Hanyang University Developer
-      Center for building applications against the Open APIs, including Android
-      and iOS SDKs and server-side sample integrations (e.g., ASP) that handle
-      OAuth server communication and authentication.
+      Software development kits published by the Hanyang University Developer Center for
+      building against the Open APIs — Android and iOS SDKs and server-side sample
+      integrations (ASP) that handle the OAuth server exchange. The SDK pages are public;
+      the APIs they call are not.
     humanURL: https://api.hanyang.ac.kr/develop/sdk_asp.page
     tags:
     - SDK
@@ -113,24 +227,161 @@ apis:
     - Education
     properties:
       - type: Documentation
-        url: https://api.hanyang.ac.kr/develop/sdk_asp.page
+        url: https://api.hanyang.ac.kr/develop/sdk_android.page
+      - type: Documentation
+        url: https://api.hanyang.ac.kr/develop/sdk_ios.page
+  - aid: hanyang:scholarworks
+    name: Hanyang ScholarWorks (research-output tenancy)
+    x-operator: tenant
+    x-operator-evidence: >-
+      https://scholarworks.bwise.kr/hanyang redirects to https://hanyang.scholarworks.kr/home
+      — an institution-named subdomain on the Bwise ScholarWorks vendor platform. A second
+      tenancy exists for the ERICA campus at erica.scholarworks.kr. The data and the
+      researcher profiles are Hanyang's; the platform and any contract are the vendor's.
+      Its /api/* paths return a structured JSON 404 envelope, so a machine surface exists
+      but is not documented or open. No vendor contract has been saved into this repo.
+    description: >-
+      Hanyang University's current research information system and research-output portal,
+      run as a tenancy on the Bwise ScholarWorks platform, one instance per campus. Linked
+      from the university's own homepage as "Scholarworks (Seoul)" and "Scholarworks
+      (ERICA)". Recorded as a relationship only.
+    humanURL: https://hanyang.scholarworks.kr/home
+    tags:
+    - Education
+    - University
+    - Research Repository
+    - Research Information
+    tags_raw:
+    - Education
+    - University
+    - Research Repository
+    - CRIS
+    properties:
+      - type: Website
+        url: https://hanyang.scholarworks.kr/home
+      - type: Website
+        url: https://erica.scholarworks.kr/home
+  - aid: hanyang:dcollection
+    name: Hanyang dCollection (thesis and dissertation tenancy)
+    x-operator: tenant
+    x-operator-evidence: >-
+      hanyang.dcollection.net is an institution-named subdomain on dcollection.net, the
+      national theses and dissertations platform operated by KERIS for Korean universities.
+      Linked from www.hanyang.ac.kr as the online dissertation submission service. Shared
+      platform, institution-specific scope — the deposits are Hanyang's, the contract is
+      KERIS's. No vendor contract saved.
+    description: >-
+      Online submission and access for Hanyang University theses and dissertations, hosted
+      on the KERIS dCollection platform. Recorded as a relationship only; no public
+      machine-readable interface was found on the Hanyang tenancy (an OAI-PMH probe against
+      /oai/request returned the site's HTML shell, not an OAI envelope).
+    humanURL: https://hanyang.dcollection.net/
+    tags:
+    - Education
+    - University
+    - Research Repository
+    - Theses
+    tags_raw:
+    - Education
+    - University
+    - Research Repository
+    - Theses
+    properties:
+      - type: Website
+        url: https://hanyang.dcollection.net/
+  - aid: hanyang:crossref
+    name: Crossref DOI registration (institute-level memberships)
+    x-operator: registry
+    x-operator-evidence: >-
+      api.crossref.org/members?query=hanyang returns eight Hanyang-affiliated members with
+      their own DOI prefixes. This is a registry Hanyang's institutes are registered in, a
+      fact about them; the registry's own contract is Crossref's and is not saved here.
+    description: >-
+      Hanyang registers DOIs through Crossref at the research-institute level rather than
+      centrally. Members and prefixes verified on 2026-09-01: Hanyang University College of
+      Medicine (4423, 10.7599), Music Research Center Hanyang University (23052, 10.36944),
+      Institute of Tourism Research (9035, 10.21581), Institute of Aging Society (20860,
+      10.35397), Hanyang University The Third Sector Institute (21762, 10.35981), Global
+      Center for Japanese Studies (16766, 10.31634 and 10.31371), Hanyang Peace Institute
+      (9825, 10.22539), Hanyang Economic Research Institute (6837, 10.17256). DataCite
+      returns zero clients for Hanyang.
+    humanURL: https://www.crossref.org/
+    baseURL: https://api.crossref.org/
+    tags:
+    - Education
+    - University
+    - Identifiers
+    - DOI
+    - Crossref
+    tags_raw:
+    - Education
+    - University
+    - Identifiers
+    - DOI
+    - Crossref
+    properties:
+      - type: Conformance
+        url: conformance/hanyang-education-standards-conformance.yml
+  - aid: hanyang:ror
+    name: ROR registration
+    x-operator: registry
+    x-operator-evidence: >-
+      api.ror.org returns https://ror.org/046865y68 for Hanyang University (Seoul), with
+      separate records for Hanyang University Seoul Hospital, Guri Hospital and the Medical
+      Center. A registry the institution is registered in; ROR's contract is ROR's.
+    description: >-
+      Research Organization Registry identifier for Hanyang University, the stable
+      machine-readable identity other systems resolve the institution by.
+    humanURL: https://ror.org/046865y68
+    baseURL: https://api.ror.org/
+    tags:
+    - Education
+    - University
+    - Identifiers
+    - ROR
+    tags_raw:
+    - Education
+    - University
+    - Identifiers
+    - ROR
+    properties:
+      - type: Website
+        url: https://ror.org/046865y68
 common:
-  - type: DomainSecurity
-    url: security/hanyang-domain-security.yml
   - type: Website
     url: https://www.hanyang.ac.kr/web/eng
   - type: DeveloperPortal
     url: https://api.hanyang.ac.kr/develop/start.page
+  - type: Documentation
+    url: https://api.hanyang.ac.kr/develop/guide.page
   - type: Authentication
-    url: https://api.hanyang.ac.kr/oauth/login
-  - type: LinkedIn
-    url: https://www.linkedin.com/company/hanyang-university
+    url: https://api.hanyang.ac.kr/develop/auths.page
+  - type: Authentication
+    url: authentication/hanyang-open-api-authentication.yml
+  - type: TermsOfService
+    url: https://api.hanyang.ac.kr/member/join_step01.page
+  - type: PrivacyPolicy
+    url: https://portal.hanyang.ac.kr/PiopAct/piopMainDaepyoWeb.do
+  - type: ResearchRepository
+    url: https://repository.hanyang.ac.kr/
+  - type: LibraryCatalog
+    url: https://library.hanyang.ac.kr/
+  - type: CourseCatalog
+    url: https://portal.hanyang.ac.kr/sugang/sulg.do
+  - type: Blog
+    url: https://blog.naver.com/hanyang-univ
+  - type: DomainSecurity
+    url: security/hanyang-domain-security.yml
   - type: Plans
     url: plans/hanyang-plans-pricing.yml
   - type: RateLimits
     url: rate-limits/hanyang-rate-limits.yml
   - type: FinOps
     url: finops/hanyang-finops.yml
+  - type: Errors
+    url: errors/hanyang-open-api-errors.yml
+  - type: Conformance
+    url: conformance/hanyang-education-standards-conformance.yml
   - type: Review
     url: review.yml
 maintainers:
