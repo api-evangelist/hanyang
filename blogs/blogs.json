@@ -2,22 +2,31 @@
   "repo": "hanyang",
   "feeds": [
     {
+      "source": "https://repository.hanyang.ac.kr/open-search/description.xml",
+      "error": "URLError"
+    },
+    {
+      "source": "https://portal.hanyang.ac.kr/sugang/sulg.do",
+      "feed_url": "https://portal.hanyang.ac.kr/sugang/sulg.do",
+      "title": "",
+      "saved": 0,
+      "method": "none"
+    },
+    {
       "source": "http://www.newshyu.com/news/articleList.html?sc_sub_section_code=S2N24&sc_language=E&view_type=sm",
       "feed_url": "http://www.newshyu.com/news/articleList.html?sc_sub_section_code=S2N24&sc_language=E&view_type=sm",
-      "title": "Hanyang University News (English)",
+      "title": "",
       "saved": 0,
-      "method": "none",
-      "error": "parse_failed"
+      "method": "none"
     },
     {
       "source": "https://www.hanyang.ac.kr/web/eng",
       "feed_url": "https://www.hanyang.ac.kr/web/eng",
-      "title": "Hanyang University",
+      "title": "",
       "saved": 0,
-      "method": "none",
-      "error": "parse_failed"
+      "method": "none"
     }
   ],
   "post_count": 0,
-  "fetched": "2026-08-30T22:05:13Z"
+  "fetched": "2026-09-06T19:17:18Z"
 }
