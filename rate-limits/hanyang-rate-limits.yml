@@ -4,7 +4,11 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Hanyang University
 providerId: hanyang
 created: '2026-06-03'
-modified: '2026-06-03'
+modified: '2026-09-01'
+generated: '2026-09-01'
+method: derived
+source: https://api.hanyang.ac.kr/develop/errorcode.page
+x-operator: institution
 reconciled: false
 tags:
 - Education
@@ -12,24 +16,70 @@ tags:
 - University
 - Rate Limiting
 description: >-
-  Hanyang University does not publish a unified public rate-limit table across its APIs. Open
-  metadata and harvesting endpoints (OAI-PMH, IIIF, library) may throttle large-scale
-  or automated harvesting; clients should harvest politely, honor Retry-After, and
-  contact the relevant service for bulk access.
-notes: Confirm per-service limits with each API's documentation; harvest responsibly.
+  Hanyang University publishes no rate-limit table and no numeric quota, but its own
+  Open API error documentation proves that per-app daily and hourly quotas are enforced:
+  LimitDailyException (id 3010, "일별 제한횟수가 초과되었습니다") and LimitHourlyException
+  (id 3011, "시간별 제한횟수가 초과되었습니다"), plus UserSessionInvalidateException 3104
+  ("허용된 사용량을 초과 하였습니다") on the OAuth path. The ceilings themselves are not
+  disclosed publicly; they are presumably set per approved app at administrator approval
+  time. The institutional repository's OAI-PMH interface at repository.hanyang.ac.kr
+  publishes no limit and returned no throttling across the probes run on 2026-09-01.
+notes: >-
+  Corrects the 2026-06-03 version of this file, which asserted limits on IIIF and library
+  endpoints that were never evidenced and that this run could not find. Quota values remain
+  unknown; only their existence and their error codes are established.
 sources:
-- https://raw.githubusercontent.com/api-evangelist/hanyang/refs/heads/main/apis.yml
+- https://api.hanyang.ac.kr/develop/errorcode.page
+- https://repository.hanyang.ac.kr/oai/request?verb=Identify
 responseCodes:
-  throttled: 429
+  throttled: 401
+  note: >-
+    Hanyang returns 401 Unauthorized on quota exhaustion, not 429 Too Many Requests, and
+    documents no Retry-After header. A client cannot distinguish a throttle from a
+    credential failure on status code alone; it must read errorObject.id.
 limits:
-- name: Default
-  scope: client
-  metric: requests-per-minute
-  limit: see service documentation
-  notes: No published global limit; large harvests may be rate-limited.
+- name: Daily call quota
+  scope: app
+  metric: requests-per-day
+  limit: undisclosed
+  errorCode: '3010'
+  errorName: LimitDailyException
+  httpStatus: 401
+  evidence: https://api.hanyang.ac.kr/develop/errorcode.page
+- name: Hourly call quota
+  scope: app
+  metric: requests-per-hour
+  limit: undisclosed
+  errorCode: '3011'
+  errorName: LimitHourlyException
+  httpStatus: 401
+  evidence: https://api.hanyang.ac.kr/develop/errorcode.page
+- name: OAuth session usage ceiling
+  scope: access-token
+  metric: requests
+  limit: undisclosed
+  errorCode: '3104'
+  errorName: UserSessionInvalidateException
+  httpStatus: 401
+  evidence: https://api.hanyang.ac.kr/develop/errorcode.page
+- name: IP allow-list
+  scope: app
+  metric: source-ip
+  limit: allow-listed addresses only
+  errorCode: '3001'
+  errorName: UnAuthorizedAccessException
+  httpStatus: 401
+  evidence: https://api.hanyang.ac.kr/develop/errorcode.page
 policies:
-- name: Backoff Strategy
-  description: Exponential backoff with jitter; honor Retry-After; harvest during off-peak hours.
+- name: Backoff strategy
+  description: >-
+    No Retry-After is documented. Read errorObject.id to tell a quota error (3010, 3011,
+    3104) from a credential error, then back off with jitter until the next hour or day
+    boundary.
+- name: Repository harvesting
+  description: >-
+    The OAI-PMH endpoint publishes no limit. Harvest politely and use resumptionToken flow
+    control as the protocol intends.
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com

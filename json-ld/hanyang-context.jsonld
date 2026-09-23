@@ -27,15 +27,29 @@
       "@id": "hy:baseURL",
       "@type": "@id"
     },
-    "authentication": "hy:authentication"
+    "authentication": "hy:authentication",
+    "identifier": "schema:identifier",
+    "operator": {
+      "@id": "hy:operator"
+    },
+    "oaiPmhBaseURL": {
+      "@id": "hy:oaiPmhBaseURL",
+      "@type": "@id"
+    },
+    "researchRepository": {
+      "@id": "hy:researchRepository",
+      "@type": "@id"
+    }
   },
   "@type": "CollegeOrUniversity",
   "name": "Hanyang University",
   "url": "https://www.hanyang.ac.kr/web/eng",
   "description": "Private research university in Seoul and Ansan, South Korea, operating an official Open API Developer Center.",
   "sameAs": [
-    "https://www.linkedin.com/company/hanyang-university",
-    "https://blog.naver.com/hanyang-univ"
+    "https://ror.org/046865y68",
+    "https://www.wikidata.org/wiki/Q40006",
+    "https://blog.naver.com/hanyang-univ",
+    "https://www.instagram.com/hanyang_univ"
   ],
   "developerPortal": "https://api.hanyang.ac.kr/develop/start.page",
   "api": [
@@ -44,12 +58,28 @@
       "apiName": "Hanyang University Open API Developer Center",
       "humanURL": "https://api.hanyang.ac.kr/develop/start.page",
       "baseURL": "https://api.hanyang.ac.kr/rs/",
-      "authentication": "OAuth"
+      "authentication": "OAuth 2.0",
+      "operator": "institution"
+    },
+    {
+      "@type": "hy:api",
+      "apiName": "Repository at Hanyang University OAI-PMH",
+      "humanURL": "https://repository.hanyang.ac.kr/",
+      "baseURL": "https://repository.hanyang.ac.kr/oai/request",
+      "authentication": "none",
+      "operator": "institution"
     },
     {
       "@type": "hy:api",
       "apiName": "Hanyang University Open API SDKs",
-      "humanURL": "https://api.hanyang.ac.kr/develop/sdk_asp.page"
+      "humanURL": "https://api.hanyang.ac.kr/develop/sdk_asp.page",
+      "operator": "institution"
     }
-  ]
+  ],
+  "generated": "2026-09-01",
+  "method": "derived",
+  "source": "https://raw.githubusercontent.com/api-evangelist/hanyang/refs/heads/main/apis.yml",
+  "identifier": "https://ror.org/046865y68",
+  "researchRepository": "https://repository.hanyang.ac.kr/",
+  "oaiPmhBaseURL": "https://repository.hanyang.ac.kr/oai/request"
 }

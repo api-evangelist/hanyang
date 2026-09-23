@@ -1,0 +1,145 @@
+specification: API Commons Errors
+specificationVersion: '0.1'
+provider: Hanyang University
+providerId: hanyang
+name: Hanyang University Open API — published error codes
+generated: '2026-09-01'
+method: derived
+source: https://api.hanyang.ac.kr/develop/errorcode.page
+x-operator: institution
+x-operator-evidence: >-
+  Published on api.hanyang.ac.kr, the institution's own registrable domain, under the
+  Hanyang University Developer Center masthead.
+description: >-
+  The complete common error table Hanyang University publishes for its Open API,
+  transcribed from its own documentation page (HTTP 200, public, no login) on
+  2026-09-01. Errors are returned in the same format as the request (XML or JSON)
+  in an errorObject envelope carrying id, name and message. Messages are Korean;
+  the English gloss below is ours, the Korean is Hanyang's.
+tags:
+  - Errors
+  - Education
+  - Higher Education
+  - University
+envelope:
+  xml: |
+    <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+    <errorObject>
+      <id>3006</id>
+      <name>RequiredSwapKeyException</name>
+      <message>복호화 키가 누락되었습니다.</message>
+    </errorObject>
+  json: |
+    { "errorObject": { "id": "3006", "name": "RequiredSwapKeyException", "message": "복호화 키가 누락되었습니다." } }
+  fields:
+    - name: id
+      description: Numeric error id.
+    - name: name
+      description: Exception class name.
+    - name: message
+      description: Human-readable Korean error description.
+errors:
+  - id: '3000'
+    name: DeprecatedApiException
+    message: 사용할 수 없는 API 입니다.
+    gloss: API is no longer available.
+    httpStatus: 403
+  - id: '3001'
+    name: UnAuthorizedAccessException
+    message: 허가되지 않은 IP 입니다.
+    gloss: Calling IP is not allow-listed.
+    httpStatus: 401
+  - id: '3003'
+    name: RequiredClientIdException
+    message: Client ID가 누락되었습니다.
+    gloss: Client ID missing.
+    httpStatus: 403
+  - id: '3004'
+    name: ClientIdNotFoundException
+    message: 존재하지 않는 Client ID입니다.
+    gloss: Client ID does not exist.
+    httpStatus: 403
+  - id: '3005'
+    name: RequiredAccessTokenException
+    message: AccessToken이 누락되었습니다.
+    gloss: Access token missing.
+    httpStatus: 403
+  - id: '3006'
+    name: RequiredSwapKeyException
+    message: 복호화 키가 누락되었습니다.
+    gloss: Decryption key missing.
+    httpStatus: 403
+  - id: '3007'
+    name: CipherNotFoundException
+    message: 유효한 복호화 키가 아닙니다.
+    gloss: Decryption key is not valid.
+    httpStatus: 403
+  - id: '3008'
+    name: DecodeFailedException
+    message: 파라미터 복호화에 실패하였습니다.
+    gloss: Parameter decryption failed.
+    httpStatus: 403
+  - id: '3010'
+    name: LimitDailyException
+    message: 일별 제한횟수가 초과되었습니다.
+    gloss: Daily call quota exceeded.
+    httpStatus: 401
+  - id: '3011'
+    name: LimitHourlyException
+    message: 시간별 제한횟수가 초과되었습니다.
+    gloss: Hourly call quota exceeded.
+    httpStatus: 401
+  - id: '3100'
+    name: UserSessionInvalidateException
+    message: invalid_request
+    gloss: Invalid OAuth request.
+    httpStatus: 401
+  - id: '3101'
+    name: UserSessionInvalidateException
+    message: access_token 정보가 존재 하지 않습니다.
+    gloss: Access token not found.
+    httpStatus: 401
+  - id: '3102'
+    name: UserSessionInvalidateException
+    message: 잘못된 scope 입니다.
+    gloss: Invalid scope.
+    httpStatus: 401
+  - id: '3103'
+    name: UserSessionInvalidateException
+    message: 이미 만료된 토큰입니다.
+    gloss: Token already expired.
+    httpStatus: 401
+  - id: '3104'
+    name: UserSessionInvalidateException
+    message: 허용된 사용량을 초과 하였습니다.
+    gloss: Allowed usage exceeded.
+    httpStatus: 401
+  - id: '3105'
+    name: UserSessionInvalidateException
+    message: unknown_error
+    gloss: Unknown error.
+    httpStatus: 401
+  - id: '3200'
+    name: ApiNotExistsException
+    message: API가 존재하지 않습니다.
+    gloss: API does not exist.
+    httpStatus: 404
+  - id: '3201'
+    name: MissingRequiredParameterException
+    message: 필수 파라미터[key]가 누락 되었습니다.
+    gloss: Required parameter missing.
+    httpStatus: 404
+  - id: '9000'
+    name: ''
+    message: ''
+    gloss: Unspecified server error (published with no name or message).
+    httpStatus: 500
+notes: >-
+  Two defects worth naming, both Hanyang's own: quota exhaustion (3010, 3011, 3104)
+  is returned as 401 Unauthorized rather than 429 Too Many Requests, and missing or
+  malformed parameters (3003, 3005, 3006, 3201) are returned as 403 or 404 rather
+  than 400. A client cannot distinguish "you are rate limited" from "your credentials
+  are wrong" on status code alone.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

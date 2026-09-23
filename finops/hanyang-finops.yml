@@ -5,6 +5,10 @@ provider: Hanyang University
 providerId: hanyang
 created: '2026-06-03'
 modified: '2026-06-03'
+generated: '2026-09-01'
+method: derived
+source: https://www.finops.org/framework/
+x-operator: institution
 reconciled: false
 tags:
 - Education

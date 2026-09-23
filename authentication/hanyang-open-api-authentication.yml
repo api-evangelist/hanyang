@@ -1,0 +1,98 @@
+specification: API Commons Authentication
+specificationVersion: '0.1'
+provider: Hanyang University
+providerId: hanyang
+name: Hanyang University Open API — OAuth 2.0 authentication
+generated: '2026-09-01'
+method: derived
+source: https://api.hanyang.ac.kr/develop/auths.page
+x-operator: institution
+x-operator-evidence: >-
+  api.hanyang.ac.kr is under the institution's own registrable domain hanyang.ac.kr;
+  the authorization and token endpoints are on that same host and the terms of service
+  name Hanyang University as the service operator.
+description: >-
+  Authentication model for the Hanyang University Open API, derived from the
+  university's own published Korean-language documentation at
+  /develop/auths.page and /develop/guide.page (both HTTP 200, publicly readable
+  without login on 2026-09-01). Hanyang classifies its Open APIs as "Public"
+  (no personal data, key only) and "Private" (personal data, end-user OAuth
+  consent required). No endpoint was exercised: the API catalogue itself is
+  behind developer registration, so nothing below was confirmed by calling it.
+tags:
+  - Authentication
+  - OAuth
+  - Education
+  - Higher Education
+  - University
+authenticationTypes:
+  - type: OAuth 2.0
+    description: >-
+      Adopted for access to protected resources (Private APIs). Access is granted
+      only after the end user logs in and consents to the scopes the app requests;
+      refusal returns an authentication failure from Hanyang's authorization server.
+    flows:
+      - name: authorization_code
+        label: Web app — server-side flow
+        authorizationEndpoint: https://api.hanyang.ac.kr/oauth/authorize
+        tokenEndpoint: https://api.hanyang.ac.kr/oauth/token
+        parameters:
+          - name: client_id
+            required: true
+            description: Client ID issued after the app is approved.
+          - name: response_type
+            required: true
+            value: code
+          - name: redirect_uri
+            required: true
+            description: Redirect URI registered with the app.
+          - name: scope
+            required: true
+            description: >-
+              Comma-separated list of the numeric API ids the app is registered to
+              use (documented example "1,2,3,4"). Scope is an API identifier list,
+              not a named permission string.
+          - name: client_secret
+            required: true
+            appliesTo: token request
+          - name: grant_type
+            required: true
+            value: authorization_code
+      - name: implicit
+        label: JavaScript app — client-side flow
+        authorizationEndpoint: https://api.hanyang.ac.kr/oauth/authorize
+        description: >-
+          Documented for JavaScript apps; the access token is returned directly to
+          the client rather than exchanged from an authorization code.
+  - type: API key
+    description: >-
+      Every Open API call, Public or Private, requires a key issued by the Developer
+      Center. CLIENT ID and CLIENT SECRET are issued only after an administrator
+      approves the registered app; CLIENT SECRET can be reissued from My App.
+    keyIssuance:
+      registration: https://api.hanyang.ac.kr/member/join_step01.page
+      appRegistration: https://api.hanyang.ac.kr/develop/guide.page
+      approval: manual administrator approval required
+      steps:
+        - Accept the Open API terms of service.
+        - Register the app (name, description, service type Android/iOS/Web, redirect URL).
+        - Select the APIs the app will call.
+        - Request administrator approval.
+        - Collect the issued CLIENT ID and CLIENT SECRET.
+requestSigning:
+  parameterEncryption: >-
+    The published error table carries RequiredSwapKeyException, CipherNotFoundException
+    and DecodeFailedException, indicating that at least some parameters are transmitted
+    encrypted and require a valid decryption ("swap") key. The key exchange mechanism
+    is not documented on the public pages.
+ipRestrictions: >-
+  UnAuthorizedAccessException ("허가되지 않은 IP 입니다", HTTP 401) indicates per-app IP
+  allow-listing is enforced.
+notes: >-
+  Derived from documentation only. The API catalogue at /api/search.page renders an
+  empty template to anonymous visitors, and /develop/console.page, /notice/list.page
+  and /board/list.page all return the login form, so no endpoint list, scope list or
+  live token exchange could be verified.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

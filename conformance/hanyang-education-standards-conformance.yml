@@ -1,0 +1,186 @@
+specification: API Commons Conformance
+specificationVersion: '0.1'
+provider: Hanyang University
+providerId: hanyang
+name: Hanyang University — education regime domain standard conformance
+generated: '2026-09-01'
+method: derived
+x-probe-method: probed
+source: live probes of Hanyang University hosts and of the DataCite, Crossref, ROR and eduGAIN registries
+regime: education
+description: >-
+  Conformance of Hanyang University's surfaces against the Kin Score education
+  regime standards list. Reward-only: only standards evidenced by a live response
+  or a registry record are marked conformant. Negatives are recorded with the probe
+  that established them so the absence is a measurement rather than a silence.
+tags:
+  - Conformance
+  - Education
+  - Higher Education
+  - University
+standards:
+  - standard: oai-pmh
+    conformant: true
+    x-operator: institution
+    evidence:
+      - url: https://repository.hanyang.ac.kr/oai/request?verb=Identify
+        status: 200
+        detail: >-
+          OAI-PMH 2.0 envelope; repositoryName "Repository at Hanyang University",
+          adminEmail repository@hanyang.ac.kr, protocolVersion 2.0,
+          earliestDatestamp 2016-04-11T07:50:06Z, granularity YYYY-MM-DDThh:mm:ssZ,
+          deletedRecord transient, oai-identifier scheme with sampleIdentifier
+          oai:repository.hanyang.ac.kr:20.500.11754/1234.
+      - url: https://repository.hanyang.ac.kr/oai/request?verb=ListMetadataFormats
+        status: 200
+        detail: >-
+          Twelve formats advertised: uketd_dc, qdc, didl, mods, ore, mets, oai_dc,
+          rdf, marc, xoai, dim, etdms.
+      - url: https://repository.hanyang.ac.kr/oai/request?verb=ListSets
+        status: 200
+        detail: Sets enumerate DSpace communities and collections on Handle prefix 20.500.11754.
+      - url: https://repository.hanyang.ac.kr/oai/request?verb=ListIdentifiers&metadataPrefix=oai_dc
+        status: 200
+        detail: >-
+          CAVEAT — returns OAI-PMH error noRecordsMatch. Reproduced with metadataPrefix
+          xoai and etdms, with set=com_20.500.11754_5121, with from=2016-01-01, and against
+          the /oai/openaire context. The endpoint is live and protocol-conformant on the
+          descriptive verbs but exposed no harvestable records on 2026-09-01, even though
+          the DSpace web UI and the site RSS feed serve items.
+      - url: https://repository.hanyang.ac.kr/oai/request?verb=Bogus
+        status: 200
+        detail: Returns OAI-PMH error badVerb — correct protocol error handling.
+  - standard: crossref
+    conformant: true
+    x-operator: registry
+    evidence:
+      - url: https://api.crossref.org/members?query=hanyang
+        status: 200
+        detail: >-
+          Eight Hanyang-affiliated Crossref members with their own DOI prefixes,
+          including Hanyang University College of Medicine (member 4423, prefix 10.7599),
+          Music Research Center Hanyang University (23052, 10.36944), Institute of Tourism
+          Research (9035, 10.21581), Institute of Aging Society (20860, 10.35397), Hanyang
+          University The Third Sector Institute (21762, 10.35981), Global Center for
+          Japanese Studies (16766, 10.31634 and 10.31371), Hanyang Peace Institute
+          (9825, 10.22539) and Hanyang Economic Research Institute (6837, 10.17256).
+          DOI registration is done per research institute, not centrally.
+  - standard: datacite
+    conformant: false
+    evidence:
+      - url: https://api.datacite.org/clients?query=hanyang
+        status: 200
+        detail: Zero DataCite repository clients. Hanyang registers no DataCite DOIs under its own name.
+  - standard: shibboleth
+    conformant: false
+    evidence:
+      - url: https://technical.edugain.org/api.php?action=list_entities&format=json&fed_id=KAFE&type=all
+        status: 200
+        detail: >-
+          KAFE (Korea Access Federation, eduGAIN member since 2016-11-25) publishes 30
+          entities to eduGAIN and none of them is Hanyang. Seoul National University,
+          Yonsei, Korea University, KAIST, POSTECH, Sungkyunkwan, Inha, Pusan, Kyungpook,
+          Chungnam and Kangwon all appear; Hanyang does not. Reconfirmed by entityID
+          substring search for "hanyang" across all of eduGAIN — zero hits.
+  - standard: saml
+    conformant: false
+    evidence:
+      - url: https://technical.edugain.org/api.php?action=list_entities&format=json&e_id=hanyang&search_type=entityid
+        status: 200
+        detail: >-
+          No SAML entity carrying hanyang in its entityID is published to eduGAIN. Hanyang
+          runs SSO through its own HY-in portal (portal.hanyang.ac.kr) and an in-house OAuth
+          2.0 authorization server at api.hanyang.ac.kr/oauth, neither of which publishes
+          federation metadata.
+  - standard: orcid
+    conformant: unknown
+    evidence:
+      - url: https://hanyang.scholarworks.kr/home
+        status: 200
+        detail: >-
+          Researcher profiles are served from a vendor tenancy (ScholarWorks / Bwise) whose
+          own API returns structured 404s to every path probed, so ORCID integration could
+          neither be confirmed nor ruled out from the outside.
+  - standard: scim
+    conformant: false
+    evidence:
+      - url: https://api.hanyang.ac.kr/api/search.page
+        status: 200
+        detail: >-
+          The API catalogue renders an empty template to anonymous visitors, so identity and
+          provisioning APIs, if any, are not enumerable. No SCIM surface found.
+  - standard: lti
+    conformant: unknown
+    evidence:
+      - url: https://www.hanyang.ac.kr/home
+        status: 200
+        detail: No LTI tool or platform registration surface is exposed publicly.
+  - standard: oneroster
+    conformant: false
+    evidence:
+      - url: https://api.hanyang.ac.kr/develop/start.page
+        status: 200
+        detail: >-
+          The Developer Center advertises an academic-records category (학사정보) but the
+          endpoints behind it are gated by developer registration; nothing in the public
+          documentation references OneRoster.
+  - standard: ed-fi
+    conformant: false
+    evidence:
+      - url: https://api.hanyang.ac.kr/develop/start.page
+        status: 200
+        detail: Ed-Fi is a US K-12 standard; no reference on any Hanyang surface.
+  - standard: caliper
+    conformant: false
+    evidence:
+      - url: https://api.hanyang.ac.kr/develop/start.page
+        status: 200
+        detail: No learning-analytics event surface found.
+  - standard: qti
+    conformant: false
+    evidence:
+      - url: https://api.hanyang.ac.kr/develop/start.page
+        status: 200
+        detail: No assessment interoperability surface found.
+otherStandards:
+  - standard: oauth2
+    conformant: true
+    x-operator: institution
+    evidence:
+      - url: https://api.hanyang.ac.kr/develop/auths.page
+        status: 200
+        detail: >-
+          Authorization-code and implicit flows documented against
+          /oauth/authorize and /oauth/token on the institution's own host.
+          No RFC 8414 metadata document — /.well-known/oauth-authorization-server
+          returns 404.
+  - standard: handle-system
+    conformant: true
+    x-operator: institution
+    evidence:
+      - url: https://repository.hanyang.ac.kr/oai/request?verb=Identify
+        status: 200
+        detail: Repository items carry Handle prefix 20.500.11754.
+  - standard: ror
+    conformant: true
+    x-operator: registry
+    evidence:
+      - url: https://api.ror.org/v2/organizations?query=Hanyang%20University
+        status: 200
+        detail: >-
+          Hanyang University is https://ror.org/046865y68 (Seoul). Separate ROR records
+          exist for Hanyang University Seoul Hospital (04n76mm80), Guri Hospital
+          (02f9avj37) and the Medical Center (05tn05n57).
+  - standard: opensearch
+    conformant: true
+    x-operator: institution
+    evidence:
+      - url: https://repository.hanyang.ac.kr/open-search/description.xml
+        status: 200
+        detail: >-
+          OpenSearch 1.1 description served, contact repository@hanyang.ac.kr — but the
+          LongName and Description are still the DSpace shipping defaults ("DSpace at My
+          University"), so the descriptor is unbranded boilerplate.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

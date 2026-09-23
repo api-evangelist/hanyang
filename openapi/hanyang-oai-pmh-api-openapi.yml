@@ -1,0 +1,161 @@
+openapi: 3.2.0
+info:
+  title: Repository at Hanyang University Interface OAI PMH API
+  version: '2.0'
+  description: OAI-PMH 2.0 harvesting interface operated by Hanyang University on its own institutional repository host, repository.hanyang.ac.kr (DSpace 5.5, Apache on Rocky Linux, admin contact repository@hanyang.ac.kr).
+  contact:
+    name: Repository at Hanyang University
+    email: repository@hanyang.ac.kr
+    url: https://repository.hanyang.ac.kr/
+  x-operator: institution
+  x-operator-evidence: Host repository.hanyang.ac.kr is under the institution's own registrable domain hanyang.ac.kr; OAI Identify returns repositoryName "Repository at Hanyang University" and adminEmail repository@hanyang.ac.kr.
+  x-software: DSpace 5.5 (open source; the software is not a vendor tenancy)
+servers:
+- url: https://repository.hanyang.ac.kr/oai/request
+  description: Default OAI-PMH context (probed live 2026-09-01)
+- url: https://repository.hanyang.ac.kr/oai/openaire
+  description: OpenAIRE OAI-PMH context (probed live 2026-09-01; also noRecordsMatch)
+tags:
+- name: oai pmh
+  description: Open Archives Initiative Protocol for Metadata Harvesting 2.0
+paths:
+  /:
+    get:
+      tags:
+      - oai pmh
+      operationId: oaiPmhRequest
+      summary: OAI-PMH request dispatcher
+      description: Single OAI-PMH entry point. The verb query parameter selects the operation. All six OAI-PMH 2.0 verbs were exercised against this endpoint on 2026-09-01.
+      parameters:
+      - name: verb
+        in: query
+        required: true
+        description: OAI-PMH verb.
+        schema:
+          type: string
+          enum:
+          - Identify
+          - ListMetadataFormats
+          - ListSets
+          - ListIdentifiers
+          - ListRecords
+          - GetRecord
+      - name: metadataPrefix
+        in: query
+        required: false
+        description: 'Metadata format. Formats advertised by ListMetadataFormats on this deployment: uketd_dc, qdc, didl, mods, ore, mets, oai_dc, rdf, marc, xoai, dim, etdms.'
+        schema:
+          type: string
+          enum:
+          - uketd_dc
+          - qdc
+          - didl
+          - mods
+          - ore
+          - mets
+          - oai_dc
+          - rdf
+          - marc
+          - xoai
+          - dim
+          - etdms
+      - name: set
+        in: query
+        required: false
+        description: Set specification. Sets on this deployment are DSpace communities and collections keyed on the Handle prefix 20.500.11754, e.g. com_20.500.11754_5121 (COLLEGE OF NURSING).
+        schema:
+          type: string
+      - name: from
+        in: query
+        required: false
+        description: UTC datestamp lower bound. Granularity YYYY-MM-DDThh:mm:ssZ.
+        schema:
+          type: string
+      - name: until
+        in: query
+        required: false
+        description: UTC datestamp upper bound. Granularity YYYY-MM-DDThh:mm:ssZ.
+        schema:
+          type: string
+      - name: identifier
+        in: query
+        required: false
+        description: OAI identifier, e.g. oai:repository.hanyang.ac.kr:20.500.11754/1234
+        schema:
+          type: string
+      - name: resumptionToken
+        in: query
+        required: false
+        description: Flow-control token from a previous incomplete list response.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OAI-PMH response envelope. The protocol returns HTTP 200 for both successful responses and protocol-level errors; the error is carried in an OAI-PMH error element, not in the status code.
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/OAIPMH'
+components:
+  schemas:
+    OAIPMH:
+      type: object
+      description: OAI-PMH 2.0 response envelope (http://www.openarchives.org/OAI/2.0/).
+      properties:
+        responseDate:
+          type: string
+          format: date-time
+        request:
+          type: string
+          format: uri
+        error:
+          $ref: '#/components/schemas/OAIError'
+        Identify:
+          $ref: '#/components/schemas/Identify'
+    Identify:
+      type: object
+      description: Values below are the live values returned by this deployment on 2026-09-01.
+      properties:
+        repositoryName:
+          type: string
+          example: Repository at Hanyang University
+        baseURL:
+          type: string
+          format: uri
+          example: https://repository.hanyang.ac.kr/oai/request
+        protocolVersion:
+          type: string
+          example: '2.0'
+        adminEmail:
+          type: string
+          format: email
+          example: repository@hanyang.ac.kr
+        earliestDatestamp:
+          type: string
+          example: '2016-04-11T07:50:06Z'
+        deletedRecord:
+          type: string
+          example: transient
+        granularity:
+          type: string
+          example: YYYY-MM-DDThh:mm:ssZ
+    OAIError:
+      type: object
+      description: 'OAI-PMH protocol error. Codes observed live on this deployment: badVerb, noRecordsMatch, idDoesNotExist.'
+      properties:
+        code:
+          type: string
+          enum:
+          - badArgument
+          - badResumptionToken
+          - badVerb
+          - cannotDisseminateFormat
+          - idDoesNotExist
+          - noRecordsMatch
+          - noMetadataFormats
+          - noSetHierarchy
+        message:
+          type: string
+x-generated: '2026-09-01'
+x-method: derived
+x-source: Live probes of https://repository.hanyang.ac.kr/oai/request on 2026-09-01, described against the OAI-PMH 2.0 protocol specification. Hanyang University publishes no machine-readable API description; this document is ours, not theirs.

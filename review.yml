@@ -3,7 +3,7 @@ name: Hanyang University
 description: Hanyang University public developer/API footprint review for APIs.json cataloging.
 url: https://raw.githubusercontent.com/api-evangelist/hanyang/refs/heads/main/review.yml
 created: '2026-06-03'
-modified: '2026-06-03'
+modified: '2026-09-01'
 reviews:
   - date: '2026-06-03'
     rating: 3
@@ -41,3 +41,81 @@ reviews:
       - url: https://www.linkedin.com/company/hanyang-university
         status: 200
         note: Official LinkedIn company page.
+  - date: '2026-09-01'
+    rating: 3
+    method: probed
+    summary: >-
+      University-pipeline re-profile with operator attribution. Hanyang is one of the
+      few institutions in this cohort that genuinely builds rather than buys: the HYU
+      Open API Developer Center at api.hanyang.ac.kr is Hanyang's own code on Hanyang's
+      own domain, with its own OAuth 2.0 authorization server, twelve service
+      categories, Android/iOS SDKs and a complete published error-code table. It is
+      also almost entirely closed: /api/search.page renders the API detail template
+      with no rows to anonymous visitors, the console and community pages return the
+      login form, and app keys need manual administrator approval, so no endpoint,
+      scope or contract is enumerable from outside. The one openly callable
+      institution-operated API is the OAI-PMH 2.0 interface on Hanyang's own DSpace
+      host — and it is live but empty: Identify, ListMetadataFormats and ListSets
+      answer correctly while ListIdentifiers, ListRecords and GetRecord return
+      noRecordsMatch/idDoesNotExist for every prefix, set and date range probed,
+      including the OpenAIRE context, even though the web UI and RSS feed serve items.
+      Research outputs and theses are vendor tenancies (Bwise ScholarWorks per campus,
+      KERIS dCollection) and are recorded as relationships, not as Hanyang contracts.
+      DOI registration is Crossref at institute level (eight members, eight prefixes);
+      DataCite has zero clients. Hanyang publishes no SAML IdP to KAFE or eduGAIN
+      although eleven Korean peers do. No university-wide GitHub organization exists,
+      only labs and student projects. The 2026-06-03 LinkedIn pointer is now a hard
+      404 and has been removed. Nothing was fabricated and no vendor contract was
+      saved.
+    endpoints:
+      - url: https://api.hanyang.ac.kr/develop/start.page
+        status: 200
+        note: Developer Center getting-started guide; public, no login.
+      - url: https://api.hanyang.ac.kr/develop/auths.page
+        status: 200
+        note: OAuth 2.0 documentation; source for authentication/.
+      - url: https://api.hanyang.ac.kr/develop/errorcode.page
+        status: 200
+        note: Full error-code table; source for errors/ and for the rate-limit evidence.
+      - url: https://api.hanyang.ac.kr/member/join_step01.page
+        status: 200
+        note: Open API terms of service, rendered in full before signup.
+      - url: https://api.hanyang.ac.kr/api/search.page
+        status: 200
+        note: API catalogue — template renders, zero rows, member-only. This is the gate.
+      - url: https://api.hanyang.ac.kr/develop/console.page
+        status: 200
+        note: Returns the login form, not the console.
+      - url: https://api.hanyang.ac.kr/openapi.json
+        status: 404
+        note: No machine-readable contract published.
+      - url: https://api.hanyang.ac.kr/.well-known/oauth-authorization-server
+        status: 404
+        note: No RFC 8414 authorization-server metadata.
+      - url: https://repository.hanyang.ac.kr/oai/request?verb=Identify
+        status: 200
+        note: OAI-PMH 2.0; repositoryName "Repository at Hanyang University", DSpace 5.5.
+      - url: https://repository.hanyang.ac.kr/oai/request?verb=ListIdentifiers&metadataPrefix=oai_dc
+        status: 200
+        note: OAI error noRecordsMatch — live endpoint, no harvestable records.
+      - url: https://repository.hanyang.ac.kr/open-search/description.xml
+        status: 200
+        note: OpenSearch 1.1 descriptor, but still carrying DSpace default branding.
+      - url: https://hanyang.scholarworks.kr/home
+        status: 200
+        note: Bwise ScholarWorks tenancy (from scholarworks.bwise.kr/hanyang). Tenant, not Hanyang's contract.
+      - url: https://hanyang.dcollection.net/
+        status: 200
+        note: KERIS dCollection tenancy for theses. Tenant.
+      - url: https://technical.edugain.org/api.php?action=list_entities&format=json&fed_id=KAFE&type=all
+        status: 200
+        note: KAFE publishes 30 eduGAIN entities; none is Hanyang. Negative federation finding.
+      - url: https://api.crossref.org/members?query=hanyang
+        status: 200
+        note: Eight institute-level Crossref members with their own DOI prefixes.
+      - url: https://api.datacite.org/clients?query=hanyang
+        status: 200
+        note: Zero DataCite clients.
+      - url: https://www.linkedin.com/company/hanyang-university
+        status: 404
+        note: Dead. Removed from apis.yml. The /school/ path returns 999 for real and bogus slugs alike, so it could not be substituted.
