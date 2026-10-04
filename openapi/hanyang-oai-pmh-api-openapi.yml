@@ -98,37 +98,6 @@ paths:
                 $ref: '#/components/schemas/OAIPMH'
 components:
   schemas:
-    OAIPMH:
-      type: object
-      description: OAI-PMH 2.0 response envelope (http://www.openarchives.org/OAI/2.0/).
-      properties:
-        responseDate:
-          type: string
-          format: date-time
-        request:
-          type: string
-          format: uri
-        error:
-          $ref: '#/components/schemas/OAIError'
-        Identify:
-          $ref: '#/components/schemas/Identify'
-    OAIError:
-      type: object
-      description: 'OAI-PMH protocol error. Codes observed live on this deployment: badVerb, noRecordsMatch, idDoesNotExist.'
-      properties:
-        code:
-          type: string
-          enum:
-          - badArgument
-          - badResumptionToken
-          - badVerb
-          - cannotDisseminateFormat
-          - idDoesNotExist
-          - noRecordsMatch
-          - noMetadataFormats
-          - noSetHierarchy
-        message:
-          type: string
     Identify:
       type: object
       description: Values below are the live values returned by this deployment on 2026-09-01.
@@ -156,6 +125,37 @@ components:
         granularity:
           type: string
           example: YYYY-MM-DDThh:mm:ssZ
+    OAIError:
+      type: object
+      description: 'OAI-PMH protocol error. Codes observed live on this deployment: badVerb, noRecordsMatch, idDoesNotExist.'
+      properties:
+        code:
+          type: string
+          enum:
+          - badArgument
+          - badResumptionToken
+          - badVerb
+          - cannotDisseminateFormat
+          - idDoesNotExist
+          - noRecordsMatch
+          - noMetadataFormats
+          - noSetHierarchy
+        message:
+          type: string
+    OAIPMH:
+      type: object
+      description: OAI-PMH 2.0 response envelope (http://www.openarchives.org/OAI/2.0/).
+      properties:
+        responseDate:
+          type: string
+          format: date-time
+        request:
+          type: string
+          format: uri
+        error:
+          $ref: '#/components/schemas/OAIError'
+        Identify:
+          $ref: '#/components/schemas/Identify'
 x-generated: '2026-09-01'
 x-method: derived
 x-source: Live probes of https://repository.hanyang.ac.kr/oai/request on 2026-09-01, described against the OAI-PMH 2.0 protocol specification. Hanyang University publishes no machine-readable API description; this document is ours, not theirs.
