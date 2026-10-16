@@ -2,19 +2,26 @@
   "repo": "hanyang",
   "feeds": [
     {
-      "source": "https://repository.hanyang.ac.kr/open-search/description.xml",
-      "error": "URLError"
-    },
-    {
-      "source": "https://portal.hanyang.ac.kr/sugang/sulg.do",
-      "feed_url": "https://portal.hanyang.ac.kr/sugang/sulg.do",
+      "source": "https://blog.naver.com/hanyang-univ",
+      "feed_url": "https://blog.naver.com/hanyang-univ",
       "title": "",
       "saved": 0,
       "method": "none"
     },
     {
+      "source": "https://repository.hanyang.ac.kr/feed/rss_2.0/site",
+      "error": "URLError"
+    },
+    {
       "source": "http://www.newshyu.com/news/articleList.html?sc_sub_section_code=S2N24&sc_language=E&view_type=sm",
       "feed_url": "http://www.newshyu.com/news/articleList.html?sc_sub_section_code=S2N24&sc_language=E&view_type=sm",
+      "title": "",
+      "saved": 0,
+      "method": "none"
+    },
+    {
+      "source": "https://portal.hanyang.ac.kr/sugang/sulg.do",
+      "feed_url": "https://portal.hanyang.ac.kr/sugang/sulg.do",
       "title": "",
       "saved": 0,
       "method": "none"
@@ -28,5 +35,5 @@
     }
   ],
   "post_count": 0,
-  "fetched": "2026-10-03T12:30:02Z"
+  "fetched": "2026-10-10T13:15:00Z"
 }
