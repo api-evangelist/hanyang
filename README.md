@@ -1,4 +1,4 @@
-# Hanyang University (hanyang)
+# Hanyang University
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,53 +64,118 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Hanyang University is a private research university in Seoul and Ansan, South Korea, ranked #162 in the QS World University Rankings 2025. It operates an official API Developer Center at [api.hanyang.ac.kr](https://api.hanyang.ac.kr/develop/start.page) that publishes REST-style Open APIs (XML/JSON) with OAuth authentication, Android/iOS SDKs, an API testing console, and a developer community. This repository catalogs that public developer/API footprint as an [APIs.json](https://apisjson.org) provider profile.
+Hanyang University is a private research university in Seoul and Ansan (ERICA), South Korea, ROR https://ror.org/046865y68. Unusually for this cohort it operates a genuine, institution-built API programme rather than a set of vendor tenancies: the HYU Open API Developer Center at api.hanyang.ac.kr publishes REST endpoints returning XML or JSON across twelve service categories (academic records, campus life, administration, research, careers, library, alumni giving, volunteering and more), backed by its own OAuth 2.0 authorization server, Android and iOS SDKs, an API console, a developer community and a full published error-code table. The catch is that the API catalogue itself is member-only: /api/search.page renders an empty template to anonymous visitors and app keys are issued only after manual administrator approval, so no endpoint list, scope list or machine-readable contract is publicly enumerable. The one openly callable institution-operated API is the OAI-PMH 2.0 interface on Hanyang's own DSpace repository at repository.hanyang.ac.kr, which answers Identify, ListMetadataFormats and ListSets correctly but returned noRecordsMatch to every harvest request probed. Its research-output and thesis surfaces are vendor tenancies (ScholarWorks/Bwise, KERIS dCollection), it registers DOIs through eight institute-level Crossref memberships rather than centrally, and it publishes no SAML identity-provider metadata to KAFE or eduGAIN while eleven of its Korean peers do.
 
-- APIs.json: https://raw.githubusercontent.com/api-evangelist/hanyang/refs/heads/main/apis.yml
-- Run it with Naftiko: https://github.com/naftiko/fleet?utm_source=api-evangelist&utm_medium=readme&utm_campaign=hanyang-api-evangelist&utm_content=repo
+**Areas:** Education · Higher Education · University · South Korea · Seoul · Research Repository · OAI-PMH · Authentication · OpenAPI · Identity Federation
 
-## Type
+## Hanyang University on APIs.io
 
-- **Type:** Index
-- **Position:** Consumer
-- **Access:** 3rd-Party
+Everything profiled for Hanyang University is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/hanyang/](https://apis.io/providers/hanyang/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (7)
 
-Education, Higher Education, University, South Korea, Seoul, Open API, OAuth
+- [Hanyang University Open API Developer Center](https://apis.io/apis/hanyang/developer-center/) — Hanyang University's own Open API platform, built and run by the university rather than bought from a vendor. REST endpoints under…
+- [Hanyang University Open API SDKs](https://apis.io/apis/hanyang/sdk/) — Software development kits published by the Hanyang University Developer Center for building against the Open APIs — Android and iOS SDKs and server-side…
+- [Hanyang ScholarWorks (research-output tenancy)](https://apis.io/apis/hanyang/scholarworks/) — Hanyang University's current research information system and research-output portal, run as a tenancy on the Bwise ScholarWorks platform, one instance per…
+- [Hanyang dCollection (thesis and dissertation tenancy)](https://apis.io/apis/hanyang/dcollection/) — Online submission and access for Hanyang University theses and dissertations, hosted on the KERIS dCollection platform. Recorded as a relationship only; no…
+- [Crossref DOI registration (institute-level memberships)](https://apis.io/apis/hanyang/crossref/) — Hanyang registers DOIs through Crossref at the research-institute level rather than centrally. Members and prefixes verified on 2026-09-01: Hanyang…
+- [ROR registration](https://apis.io/apis/hanyang/ror/) — Research Organization Registry identifier for Hanyang University, the stable machine-readable identity other systems resolve the institution by.
+- [Hanyang University OAI PMH API](https://apis.io/apis/hanyang/hanyang-oai-pmh-api/) — Open Archives Initiative Protocol for Metadata Harvesting 2.0
 
-## APIs
+### Published properties
 
-- **Hanyang University Open API Developer Center** — REST Open APIs (XML/JSON), Public and Private (authenticated) classes, OAuth-based. Docs: https://api.hanyang.ac.kr/develop/start.page
-- **Hanyang University Open API SDKs** — Android, iOS, and server-side (ASP) SDKs for building against the Open APIs. Docs: https://api.hanyang.ac.kr/develop/sdk_asp.page
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-Endpoint access requires developer registration and HY-in/OAuth login; individual endpoints and Private (personal-data) APIs are gated and not publicly enumerable.
+#### JSON-LD (1)
 
-## Plans, Rate Limits, and FinOps
+Linked-data contexts for the provider's vocabulary.
 
-- Plans / Pricing: [plans/hanyang-plans-pricing.yml](plans/hanyang-plans-pricing.yml)
-- Rate Limits: [rate-limits/hanyang-rate-limits.yml](rate-limits/hanyang-rate-limits.yml)
-- FinOps: [finops/hanyang-finops.yml](finops/hanyang-finops.yml)
+- [Hanyang Context](https://apis.io/jsonld/hanyang/hanyang-context/)
 
-## Timestamps
+#### Security (2)
 
-- Created: 2026-06-03
-- Modified: 2026-06-03
+Authentication, trust centre, and vulnerability disclosure.
 
-## Common Properties
+- [Hanyang Domain Security](https://apis.io/security/hanyang/hanyang-domain-security/)
+- [Hanyang Open Api Authentication](https://apis.io/security/hanyang/hanyang-open-api-authentication/)
 
-- Website: https://www.hanyang.ac.kr/web/eng
-- Developer Portal: https://api.hanyang.ac.kr/develop/start.page
-- Authentication (OAuth): https://api.hanyang.ac.kr/oauth/login
-- LinkedIn: https://www.linkedin.com/company/hanyang-university
+#### Plans and pricing (1)
 
-## Notes
+Published plans, tiers and prices.
 
-- The API Developer Center landing and SDK pages return HTTP 200 and are publicly readable; the actual Open API endpoints (base path `https://api.hanyang.ac.kr/rs/`) are gated behind developer registration and OAuth, so specific endpoints are not listed here.
-- No official university-wide GitHub organization was found — only research labs and student projects (e.g., HYU-NLP, hyuabot, BusHanyang). No GitHub common pointer is therefore claimed.
-- The official English homepage returns 403 to automated probes but is the confirmed official site.
-- No endpoints were fabricated; only verified, publicly reachable URLs are recorded. See [review.yml](review.yml).
+- [Hanyang Plans Pricing](https://apis.io/plans/hanyang/hanyang-plans-pricing/)
 
-## Maintainers
+#### Rate limits (1)
 
-- Kin Lane — kin@apievangelist.com
+Published request limits.
+
+- [Hanyang Rate Limits](https://apis.io/rate-limits/hanyang/hanyang-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Hanyang Finops](https://apis.io/finops/hanyang/hanyang-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.hanyang.ac.kr/web/eng)
+- [Documentation](https://api.hanyang.ac.kr/develop/guide.page)
+- [Blog](https://blog.naver.com/hanyang-univ)
+- [Terms of service](https://api.hanyang.ac.kr/member/join_step01.page)
+- [Privacy policy](https://portal.hanyang.ac.kr/PiopAct/piopMainDaepyoWeb.do)
+
+## API Evangelist rating
+
+**Kin Score 27.7** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 57.1 |
+| Contract quality | 22.0 |
+| Contract governance | 0.0 |
+| Operational transparency | 7.9 |
+| Developer ergonomics | 33.3 |
+| Access clarity | 39.5 |
+
+**Agent readiness 20.1** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | — |
+| Reversibility Documented | na |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | na |
+| Error Semantics | — |
+| OpenAPI Examples | documented (partial credit) |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | na |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 24.5** — Education & Research
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/hanyang/](https://apis.io/providers/hanyang/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Hanyang University: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/hanyang/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
